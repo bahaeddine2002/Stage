@@ -1,0 +1,58 @@
+<!-- Appointments -->
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2">Appointments</h1>
+    <button class="btn btn-primary">
+      <i class="bi bi-calendar-plus me-2"></i>Schedule Appointment
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Appointment</th>
+              <th>Date & Time</th>
+              <th>Attorney</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let apt of appointments">
+              <td>
+                <strong>{{ apt.title }}</strong><br>
+                <small class="text-muted">{{ apt.id }}</small>
+              </td>
+              <td>
+                <i class="bi bi-calendar3 me-2"></i>{{ apt.date }}<br>
+                <i class="bi bi-clock me-2"></i>{{ apt.time }}
+              </td>
+              <td>{{ apt.attorney }}</td>
+              <td>
+                <i class="bi bi-{{ apt.type === 'Video Call' ? 'camera-video' : 'building' }} me-2"></i>
+                {{ apt.type }}
+              </td>
+              <td>
+                <span class="badge {{ getStatusClass(apt.status) }}">
+                  {{ apt.status }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary me-2">
+                  <i class="bi bi-pencil"></i> Edit
+                </button>
+                <button class="btn btn-sm btn-outline-danger">
+                  <i class="bi bi-x-circle"></i> Cancel
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,8 +6,9 @@ declare var bootstrap: any;
   selector: 'app-navbar',
   standalone: true,
   imports: [RouterModule],
+  styleUrls: ['./navbar.css'],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css'
+  
 })
 export class Navbar {
   isLoginPage = false;
