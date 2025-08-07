@@ -12,13 +12,19 @@ declare var bootstrap: any;
 })
 export class Navbar {
   isLoginPage = false;
+  isHomePage = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.isLoginPage = this.router.url === '/login';
+        this.isHomePage = this.router.url === '/';
       }
     });
+    
+    // Set initial state
+    this.isLoginPage = this.router.url === '/login';
+    this.isHomePage = this.router.url === '/';
   }
 
   @HostListener('window:scroll', [])

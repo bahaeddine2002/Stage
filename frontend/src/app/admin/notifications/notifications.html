@@ -1,0 +1,43 @@
+<!-- Modern Admin Notifications -->
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="h2 fw-bold text-slate-800 mb-1">Notifications</h1>
+      <p class="text-muted mb-0">System notifications and alerts</p>
+    </div>
+    <button class="btn btn-outline-secondary" (click)="markAllAsRead()">
+      <i class="bi bi-check2-all me-2"></i>Mark All as Read
+    </button>
+  </div>
+
+  <div class="card card-modern">
+    <div class="card-body p-0">
+      <div class="list-group list-group-flush">
+        <div *ngFor="let notification of notifications" 
+             class="list-group-item border-0 py-3"
+             [class.bg-light]="!notification.read">
+          <div class="d-flex align-items-start">
+            <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
+              <i class="bi bi-bell text-primary"></i>
+            </div>
+            <div class="flex-grow-1">
+              <div class="fw-semibold" [class.text-primary]="!notification.read">
+                {{ notification.message }}
+              </div>
+              <small class="text-muted">
+                {{ notification.createdAt | date:'MMM d, y h:mm a' }}
+              </small>
+            </div>
+            <div *ngIf="!notification.read" class="ms-2">
+              <span class="badge bg-primary rounded-pill">New</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="notifications.length === 0" class="list-group-item text-center py-5">
+          <i class="bi bi-bell-slash display-4 text-muted mb-3"></i>
+          <p class="text-muted">No notifications available</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,16 +1,19 @@
-<!-- Appointments -->
+<!-- Modern Appointments View -->
 <div class="container-fluid">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h2">Appointments</h1>
-    <button class="btn btn-primary">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="h2 fw-bold text-slate-800 mb-1">Appointments</h1>
+      <p class="text-muted mb-0">Schedule and manage your meetings</p>
+    </div>
+    <button class="btn btn-primary-modern">
       <i class="bi bi-calendar-plus me-2"></i>Schedule Appointment
     </button>
   </div>
 
-  <div class="card">
-    <div class="card-body">
+  <div class="card card-modern">
+    <div class="card-body p-0">
       <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table table-modern mb-0">
           <thead>
             <tr>
               <th>Appointment</th>
@@ -18,36 +21,64 @@
               <th>Attorney</th>
               <th>Type</th>
               <th>Status</th>
-              <th>Actions</th>
+              <th class="text-end">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let apt of appointments">
+            <tr *ngFor="let apt of appointments" class="align-middle">
               <td>
-                <strong>{{ apt.title }}</strong><br>
-                <small class="text-muted">{{ apt.id }}</small>
+                <div class="d-flex align-items-center">
+                  <div class="bg-primary bg-opacity-10 rounded-3 p-2 me-3">
+                    <i class="bi {{ getTypeIcon(apt.type) }} text-primary"></i>
+                  </div>
+                  <div>
+                    <div class="fw-semibold">{{ apt.title }}</div>
+                    <small class="text-muted">{{ apt.id }}</small>
+                  </div>
+                </div>
               </td>
               <td>
-                <i class="bi bi-calendar3 me-2"></i>{{ apt.date }}<br>
-                <i class="bi bi-clock me-2"></i>{{ apt.time }}
-              </td>
-              <td>{{ apt.attorney }}</td>
-              <td>
-                <i class="bi bi-{{ apt.type === 'Video Call' ? 'camera-video' : 'building' }} me-2"></i>
-                {{ apt.type }}
+                <div class="fw-medium">{{ apt.date | date:'MMM d, y' }}</div>
+                <small class="text-muted">{{ apt.time }}</small>
               </td>
               <td>
-                <span class="badge {{ getStatusClass(apt.status) }}">
-                  {{ apt.status }}
+                <div class="d-flex align-items-center">
+                  <div class="bg-success bg-opacity-10 rounded-circle p-2 me-2">
+                    <i class="bi bi-person-fill text-success"></i>
+                  </div>
+                  <span class="fw-medium">{{ apt.attorney }}</span>
+                </div>
+              </td>
+              <td>
+                <span class="badge badge-modern text-bg-info">
+                  <i class="bi {{ getTypeIcon(apt.type) }} me-1"></i>
+                  {{ apt.type }}
                 </span>
               </td>
               <td>
-                <button class="btn btn-sm btn-outline-primary me-2">
-                  <i class="bi bi-pencil"></i> Edit
-                </button>
-                <button class="btn btn-sm btn-outline-danger">
-                  <i class="bi bi-x-circle"></i> Cancel
-                </button>
+                <span class="badge badge-modern {{ getStatusClass(apt.status) }}">
+                  <i class="bi {{ getStatusIcon(apt.status) }} me-1"></i>
+                  {{ apt.status }}
+                </span>
+              </td>
+              <td class="text-end">
+                <div class="btn-group" role="group">
+                  <button class="btn btn-sm btn-outline-primary" 
+                          *ngIf="apt.status !== 'Completed'" 
+                          title="Edit">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-sm btn-success" 
+                          *ngIf="apt.type === 'Meeting' && apt.status === 'Confirmed'" 
+                          title="Join Meeting">
+                    <i class="bi bi-camera-video"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" 
+                          *ngIf="apt.status !== 'Completed' && apt.status !== 'Cancelled'" 
+                          title="Cancel">
+                    <i class="bi bi-x-circle"></i>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>

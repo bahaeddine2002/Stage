@@ -1,0 +1,156 @@
+<!-- Modern Cases Management -->
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="h2 fw-bold text-slate-800 mb-1">Cases Management</h1>
+      <p class="text-muted mb-0">Manage all legal cases and matters</p>
+    </div>
+    <button class="btn btn-primary-modern">
+      <i class="bi bi-folder-plus me-2"></i>Create New Case
+    </button>
+  </div>
+
+  <!-- Filter Chips -->
+  <div class="card card-modern mb-4">
+    <div class="card-body">
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <span class="fw-semibold me-3">Filters:</span>
+        <button class="btn btn-sm" 
+                [class]="filterType === '' ? 'btn-primary' : 'btn-outline-primary'"
+                (click)="setFilter('type', '')">
+          All Types
+        </button>
+        <button class="btn btn-sm" 
+                [class]="filterType === 'Commercial' ? 'btn-primary' : 'btn-outline-primary'"
+                (click)="setFilter('type', 'Commercial')">
+          Commercial
+        </button>
+        <button class="btn btn-sm" 
+                [class]="filterType === 'Familial' ? 'btn-primary' : 'btn-outline-primary'"
+                (click)="setFilter('type', 'Familial')">
+          Familial
+        </button>
+        <button class="btn btn-sm" 
+                [class]="filterType === 'Civil' ? 'btn-primary' : 'btn-outline-primary'"
+                (click)="setFilter('type', 'Civil')">
+          Civil
+        </button>
+      </div>
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <span class="fw-semibold me-3">Status:</span>
+        <button class="btn btn-sm" 
+                [class]="filterStatus === '' ? 'btn-success' : 'btn-outline-success'"
+                (click)="setFilter('status', '')">
+          All Status
+        </button>
+        <button class="btn btn-sm" 
+                [class]="filterStatus === 'Active' ? 'btn-success' : 'btn-outline-success'"
+                (click)="setFilter('status', 'Active')">
+          Active
+        </button>
+        <button class="btn btn-sm" 
+                [class]="filterStatus === 'Pending' ? 'btn-success' : 'btn-outline-success'"
+                (click)="setFilter('status', 'Pending')">
+          Pending
+        </button>
+        <button class="btn btn-sm" 
+                [class]="filterStatus === 'Closed' ? 'btn-success' : 'btn-outline-success'"
+                (click)="setFilter('status', 'Closed')">
+          Closed
+        </button>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        <span class="fw-semibold me-3">Payment:</span>
+        <button class="btn btn-sm" 
+                [class]="filterPaid === null ? 'btn-warning' : 'btn-outline-warning'"
+                (click)="setFilter('paid', null)">
+          All
+        </button>
+        <button class="btn btn-sm" 
+                [class]="filterPaid === true ? 'btn-warning' : 'btn-outline-warning'"
+                (click)="setFilter('paid', true)">
+          Paid
+        </button>
+        <button class="btn btn-sm" 
+                [class]="filterPaid === false ? 'btn-warning' : 'btn-outline-warning'"
+                (click)="setFilter('paid', false)">
+          Unpaid
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cases Table -->
+  <div class="card card-modern">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-modern mb-0">
+          <thead>
+            <tr>
+              <th>Case Reference</th>
+              <th>Title</th>
+              <th>Client</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Payment</th>
+              <th>Last Update</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let case of filteredCases" class="align-middle">
+              <td>
+                <span class="fw-semibold text-primary">{{ case.ref }}</span>
+              </td>
+              <td>
+                <div class="fw-semibold">{{ case.title }}</div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="bg-info bg-opacity-10 rounded-circle p-2 me-2">
+                    <i class="bi bi-person-fill text-info"></i>
+                  </div>
+                  <span>{{ case.clientName }}</span>
+                </div>
+              </td>
+              <td>
+                <span class="badge badge-modern text-bg-info">{{ case.type }}</span>
+              </td>
+              <td>
+                <span class="badge badge-modern {{ getStatusClass(case.status) }}">
+                  <i class="bi {{ getStatusIcon(case.status) }} me-1"></i>
+                  {{ case.status }}
+                </span>
+              </td>
+              <td>
+                <span class="badge badge-modern" 
+                      [class]="case.paid ? 'text-bg-success' : 'text-bg-danger'">
+                  <i class="bi {{ case.paid ? 'bi-check-circle-fill' : 'bi-x-circle-fill' }} me-1"></i>
+                  {{ case.paid ? 'Paid' : 'Unpaid' }}
+                </span>
+              </td>
+              <td>
+                <span class="text-muted">{{ case.lastUpdate | date:'MMM d, y' }}</span>
+              </td>
+              <td class="text-end">
+                <div class="btn-group" role="group">
+                  <button class="btn btn-sm btn-outline-primary" title="View Details">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-secondary" title="Edit Case">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-success" 
+                          *ngIf="case.status !== 'Closed'" 
+                          title="Close Case">
+                    <i class="bi bi-check-circle"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

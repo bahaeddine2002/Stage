@@ -1,0 +1,71 @@
+<!-- Modern Admin Appointments -->
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="h2 fw-bold text-slate-800 mb-1">Appointments Management</h1>
+      <p class="text-muted mb-0">Manage client appointments and scheduling</p>
+    </div>
+  </div>
+
+  <div class="card card-modern">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-modern mb-0">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Date & Time</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let appointment of appointments" class="align-middle">
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="bg-info bg-opacity-10 rounded-circle p-2 me-2">
+                    <i class="bi bi-person-fill text-info"></i>
+                  </div>
+                  <span class="fw-semibold">{{ appointment.clientName }}</span>
+                </div>
+              </td>
+              <td>
+                <div class="fw-medium">{{ appointment.startDateTime | date:'MMM d, y' }}</div>
+                <small class="text-muted">{{ appointment.startDateTime | date:'h:mm a' }}</small>
+              </td>
+              <td>
+                <span class="badge badge-modern text-bg-info">{{ appointment.type }}</span>
+              </td>
+              <td>
+                <span class="badge badge-modern {{ getStatusClass(appointment.status) }}">
+                  {{ appointment.status }}
+                </span>
+              </td>
+              <td class="text-end">
+                <div class="btn-group" *ngIf="appointment.status === 'Pending'">
+                  <button class="btn btn-sm btn-success" 
+                          (click)="updateStatus(appointment.id, 'Confirmed')"
+                          title="Accept">
+                    <i class="bi bi-check-circle"></i>
+                  </button>
+                  <button class="btn btn-sm btn-danger" 
+                          (click)="updateStatus(appointment.id, 'Declined')"
+                          title="Decline">
+                    <i class="bi bi-x-circle"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-primary" title="Send SMS">
+                    <i class="bi bi-chat-text"></i>
+                  </button>
+                </div>
+                <span *ngIf="appointment.status !== 'Pending'" class="text-muted">
+                  {{ appointment.status }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

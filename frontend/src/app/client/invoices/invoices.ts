@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MockDataService, Invoice } from '../../shared/services/mock-data.service';
 
 @Component({
   selector: 'app-invoices',
@@ -7,19 +8,38 @@ import { CommonModule } from '@angular/common';
   templateUrl: './invoices.html',
   styleUrl: './invoices.css'
 })
-export class Invoices {
-  invoices = [
-    { id: 'INV-2024-001', amount: '$2,500.00', status: 'Paid', dueDate: '2024-03-15', case: 'CASE-2024-001' },
-    { id: 'INV-2024-002', amount: '$1,200.00', status: 'Pending', dueDate: '2024-03-20', case: 'CASE-2024-002' },
-    { id: 'INV-2024-003', amount: '$850.00', status: 'Overdue', dueDate: '2024-02-28', case: 'CASE-2024-001' }
-  ];
+export class Invoices implements OnInit {
+  invoices: Invoice[] = [];
+
+  constructor(private mockDataService: MockDataService) {}
+
+  ngOnInit() {
+    // TODO: Replace with actual API call
+    this.mockDataService.getInvoices().subscribe(data => {
+      this.invoices = data;
+    });
+  }
 
   getStatusClass(status: string): string {
     switch(status) {
-      case 'Paid': return 'bg-success';
-      case 'Pending': return 'bg-warning';
-      case 'Overdue': return 'bg-danger';
-      default: return 'bg-primary';
+      case 'Paid': return 'text-bg-success';
+      case 'Pending': return 'text-bg-warning';
+      case 'Overdue': return 'text-bg-danger';
+      default: return 'text-bg-primary';
     }
+  }
+
+  getStatusIcon(status: string): string {
+    switch(status) {
+      case 'Paid': return 'bi-check-circle-fill';
+      case 'Pending': return 'bi-clock-fill';
+      case 'Overdue': return 'bi-exclamation-triangle-fill';
+      default: return 'bi-circle-fill';
+    }
+  }
+
+  isOverdue(dueDate: string, status: string): boolean {
+    if (status === 'Paid') return false;
+    return new Date(dueDate) < new Date();
   }
 }

@@ -1,16 +1,19 @@
-<!-- Invoices -->
+<!-- Modern Invoices View -->
 <div class="container-fluid">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h2">Invoices</h1>
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="h2 fw-bold text-slate-800 mb-1">Invoices</h1>
+      <p class="text-muted mb-0">Manage your billing and payments</p>
+    </div>
     <button class="btn btn-success">
       <i class="bi bi-credit-card me-2"></i>Pay Outstanding
     </button>
   </div>
 
-  <div class="card">
-    <div class="card-body">
+  <div class="card card-modern">
+    <div class="card-body p-0">
       <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table table-modern mb-0">
           <thead>
             <tr>
               <th>Invoice ID</th>
@@ -18,27 +21,53 @@
               <th>Status</th>
               <th>Due Date</th>
               <th>Related Case</th>
-              <th>Actions</th>
+              <th class="text-end">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let invoice of invoices">
-              <td><strong>{{ invoice.id }}</strong></td>
-              <td><strong>{{ invoice.amount }}</strong></td>
+            <tr *ngFor="let invoice of invoices" class="align-middle">
               <td>
-                <span class="badge {{ getStatusClass(invoice.status) }}">
+                <div class="d-flex align-items-center">
+                  <div class="bg-primary bg-opacity-10 rounded-3 p-2 me-3">
+                    <i class="bi bi-receipt text-primary"></i>
+                  </div>
+                  <div>
+                    <div class="fw-semibold">{{ invoice.id }}</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="fw-bold fs-6">{{ invoice.amount }}</span>
+              </td>
+              <td>
+                <span class="badge badge-modern {{ getStatusClass(invoice.status) }}">
+                  <i class="bi {{ getStatusIcon(invoice.status) }} me-1"></i>
                   {{ invoice.status }}
                 </span>
               </td>
-              <td>{{ invoice.dueDate }}</td>
-              <td><span class="badge bg-light text-dark">{{ invoice.case }}</span></td>
               <td>
-                <button class="btn btn-sm btn-outline-primary me-2">
-                  <i class="bi bi-eye"></i> View
-                </button>
-                <button class="btn btn-sm btn-outline-success" *ngIf="invoice.status !== 'Paid'">
-                  <i class="bi bi-credit-card"></i> Pay
-                </button>
+                <div class="text-muted">{{ invoice.dueDate | date:'MMM d, y' }}</div>
+                <small class="text-muted" *ngIf="isOverdue(invoice.dueDate, invoice.status)">
+                  <i class="bi bi-exclamation-triangle text-danger me-1"></i>Overdue
+                </small>
+              </td>
+              <td>
+                <span class="badge badge-modern text-bg-primary">{{ invoice.case }}</span>
+              </td>
+              <td class="text-end">
+                <div class="btn-group" role="group">
+                  <button class="btn btn-sm btn-outline-primary" title="View Details">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button class="btn btn-sm btn-success" 
+                          *ngIf="invoice.status !== 'Paid'" 
+                          title="Pay Now">
+                    <i class="bi bi-credit-card"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-secondary" title="Download PDF">
+                    <i class="bi bi-download"></i>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>

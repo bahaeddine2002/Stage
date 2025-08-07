@@ -1,19 +1,29 @@
-<!-- Client Dashboard -->
+<!-- Modern Client Dashboard -->
 <div class="container-fluid">
-  <h1 class="h2 mb-4">Dashboard</h1>
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="h2 fw-bold text-slate-800 mb-1">Welcome back, John</h1>
+      <p class="text-muted mb-0">Here's what's happening with your cases today</p>
+    </div>
+    <div class="text-muted">
+      <i class="bi bi-calendar3 me-2"></i>
+      {{ currentDate | date:'fullDate' }}
+    </div>
+  </div>
   
-  <!-- KPI Cards Row -->
-  <div class="row mb-4">
+  <!-- Enhanced KPI Cards -->
+  <div class="row g-4 mb-5">
     <div class="col-md-4">
-      <div class="card text-white bg-primary">
-        <div class="card-body">
-          <div class="d-flex justify-content-between">
+      <div class="card kpi-card">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-start">
             <div>
-              <h5 class="card-title">Open Cases</h5>
-              <h2 class="mb-0">{{ kpiData.openCases }}</h2>
+              <p class="card-title mb-2 opacity-75">Open Cases</p>
+              <h2 class="mb-0 fw-bold">{{ kpiData.openCases }}</h2>
+              <small class="opacity-75">Active matters</small>
             </div>
-            <div class="align-self-center">
-              <i class="bi bi-folder2-open" style="font-size: 2rem;"></i>
+            <div class="bg-white bg-opacity-25 rounded-3 p-3">
+              <i class="bi bi-folder2-open" style="font-size: 1.5rem;"></i>
             </div>
           </div>
         </div>
@@ -21,70 +31,89 @@
     </div>
     
     <div class="col-md-4">
-      <div class="card text-white bg-warning">
-        <div class="card-body">
-          <div class="d-flex justify-content-between">
+      <div class="card kpi-card warning">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-start">
             <div>
-              <h5 class="card-title">Unpaid Invoices</h5>
-              <h2 class="mb-0">{{ kpiData.unpaidInvoices }}</h2>
+              <p class="card-title mb-2 opacity-75">Unpaid Invoices</p>
+              <h2 class="mb-0 fw-bold">{{ kpiData.unpaidInvoices }}</h2>
+              <small class="opacity-75">Require attention</small>
             </div>
-            <div class="align-self-center">
-              <i class="bi bi-receipt" style="font-size: 2rem;"></i>
+            <div class="bg-white bg-opacity-25 rounded-3 p-3">
+              <i class="bi bi-receipt" style="font-size: 1.5rem;"></i>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-
-     <div class="col-md-4">
-      <div class="card text-white bg-success">
-        <div class="card-body">
-          <div class="d-flex justify-content-between">
+    <div class="col-md-4">
+      <div class="card kpi-card success">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-start">
             <div>
-              <h5 class="card-title">Next Appointment</h5>
-              <h2 class="mb-0">{{ kpiData.nextAppointment }}</h2>
+              <p class="card-title mb-2 opacity-75">Next Appointment</p>
+              <h2 class="mb-0 fw-bold">{{ kpiData.nextAppointment }}</h2>
+              <small class="opacity-75">This month</small>
             </div>
-            <div class="align-self-center">
-              <i class="bi bi-calendar-event" style="font-size: 2rem;"></i>
+            <div class="bg-white bg-opacity-25 rounded-3 p-3">
+              <i class="bi bi-calendar-event" style="font-size: 1.5rem;"></i>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-    
-    
   </div>
 
   <!-- Recent Activity -->
   <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="mb-0">Recent Activity</h5>
+      <div class="card card-unified">
+        <div class="card-header bg-white border-0 pb-0">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-semibold">Recent Activity</h5>
+            <button class="btn btn-sm btn-primary-unified">View All</button>
+          </div>
         </div>
         <div class="card-body">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <strong>Case Update:</strong> Personal Injury Case - Settlement offer received
+          <div class="list-group list-group-flush">
+            <div class="list-group-item border-0 px-0 py-3">
+              <div class="d-flex align-items-start">
+                <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
+                  <i class="bi bi-folder-plus text-primary"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="fw-semibold">Case Update</div>
+                  <p class="text-muted mb-1">Personal Injury Case - Settlement offer received</p>
+                  <small class="text-muted">2 hours ago</small>
+                </div>
               </div>
-              <small class="text-muted">2 hours ago</small>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <strong>Document Added:</strong> Medical records uploaded to Case #2024-001
+            </div>
+            <div class="list-group-item border-0 px-0 py-3">
+              <div class="d-flex align-items-start">
+                <div class="bg-success bg-opacity-10 rounded-circle p-2 me-3">
+                  <i class="bi bi-file-earmark-plus text-success"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="fw-semibold">Document Added</div>
+                  <p class="text-muted mb-1">Medical records uploaded to Case #2024-001</p>
+                  <small class="text-muted">1 day ago</small>
+                </div>
               </div>
-              <small class="text-muted">1 day ago</small>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <strong>Appointment Scheduled:</strong> Consultation meeting confirmed
+            </div>
+            <div class="list-group-item border-0 px-0 py-3">
+              <div class="d-flex align-items-start">
+                <div class="bg-warning bg-opacity-10 rounded-circle p-2 me-3">
+                  <i class="bi bi-calendar-check text-warning"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="fw-semibold">Appointment Scheduled</div>
+                  <p class="text-muted mb-1">Consultation meeting confirmed</p>
+                  <small class="text-muted">3 days ago</small>
+                </div>
               </div>
-              <small class="text-muted">3 days ago</small>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,129 @@
+<!-- Modern Admin Dashboard -->
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="h2 fw-bold text-slate-800 mb-1">Admin Dashboard</h1>
+      <p class="text-muted mb-0">Overview of your law firm operations</p>
+    </div>
+    <div class="text-muted">
+      <i class="bi bi-calendar3 me-2"></i>
+      {{ currentDate | date:'fullDate' }}
+    </div>
+  </div>
+
+  <!-- Enhanced KPI Cards -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-3">
+      <div class="card kpi-card">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="card-title mb-2 opacity-75">Open Cases</p>
+              <h2 class="mb-0 fw-bold">{{ kpiData.openCases }}</h2>
+              <small class="opacity-75">Active matters</small>
+            </div>
+            <div class="bg-white bg-opacity-25 rounded-3 p-3">
+              <i class="bi bi-folder2-open" style="font-size: 1.5rem;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card kpi-card warning">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="card-title mb-2 opacity-75">Pending Invoices</p>
+              <h2 class="mb-0 fw-bold">{{ kpiData.pendingInvoiceTotal }}</h2>
+              <small class="opacity-75">Outstanding amount</small>
+            </div>
+            <div class="bg-white bg-opacity-25 rounded-3 p-3">
+              <i class="bi bi-receipt" style="font-size: 1.5rem;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card kpi-card success">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="card-title mb-2 opacity-75">Upcoming Appointments</p>
+              <h2 class="mb-0 fw-bold">{{ kpiData.upcomingAppointments }}</h2>
+              <small class="opacity-75">This week</small>
+            </div>
+            <div class="bg-white bg-opacity-25 rounded-3 p-3">
+              <i class="bi bi-calendar-event" style="font-size: 1.5rem;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white;">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="card-title mb-2 opacity-75">Templates to Review</p>
+              <h2 class="mb-0 fw-bold">{{ kpiData.templatesToReview }}</h2>
+              <small class="opacity-75">Pending updates</small>
+            </div>
+            <div class="bg-white bg-opacity-25 rounded-3 p-3">
+              <i class="bi bi-file-earmark-text" style="font-size: 1.5rem;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-unified">
+        <div class="card-header bg-white border-0 pb-0">
+          <h5 class="mb-0 fw-semibold">Quick Actions</h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <a routerLink="/admin/clients"
+                class="btn btn-primary-unified w-100 p-3 text-start text-white text-decoration-none">
+                <i class="bi bi-person-plus me-3"></i>
+                <div>
+                  <div class="fw-semibold">Add New Client</div>
+                  <small class="opacity-75">Register a new client</small>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-4">
+              <a routerLink="/admin/cases"
+                class="btn btn-primary-unified w-100 p-3 text-start text-white text-decoration-none">
+                <i class="bi bi-folder-plus me-3"></i>
+                <div>
+                  <div class="fw-semibold">Create Case</div>
+                  <small class="opacity-75">Open a new legal case</small>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-4">
+              <a routerLink="/admin/templates"
+                class="btn btn-primary-unified w-100 p-3 text-start text-white text-decoration-none">
+                <i class="bi bi-file-earmark-plus me-3"></i>
+                <div>
+                  <div class="fw-semibold">Generate Document</div>
+                  <small class="opacity-75">Create from template</small>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

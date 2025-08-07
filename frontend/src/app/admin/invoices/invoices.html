@@ -1,0 +1,57 @@
+<!-- Modern Admin Invoices -->
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="h2 fw-bold text-slate-800 mb-1">Invoices Management</h1>
+      <p class="text-muted mb-0">Track and manage client billing</p>
+    </div>
+    <button class="btn btn-primary-modern">
+      <i class="bi bi-plus-circle me-2"></i>Create Invoice
+    </button>
+  </div>
+
+  <div class="card card-modern">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-modern mb-0">
+          <thead>
+            <tr>
+              <th>Invoice Ref</th>
+              <th>Client</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Due Date</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let invoice of invoices" class="align-middle">
+              <td><span class="fw-semibold text-primary">{{ invoice.ref }}</span></td>
+              <td>{{ invoice.clientName }}</td>
+              <td><span class="fw-bold">{{ invoice.total }}</span></td>
+              <td>
+                <span class="badge badge-modern {{ getStatusClass(invoice.status) }}">
+                  {{ invoice.status }}
+                </span>
+              </td>
+              <td>{{ invoice.dueDate | date:'MMM d, y' }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-outline-primary" title="Generate PDF">
+                    <i class="bi bi-file-pdf"></i>
+                  </button>
+                  <button class="btn btn-sm btn-success" 
+                          *ngIf="invoice.status !== 'Paid'" 
+                          (click)="markAsPaid(invoice.id)"
+                          title="Mark as Paid">
+                    <i class="bi bi-check-circle"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

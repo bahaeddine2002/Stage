@@ -1,16 +1,19 @@
-<!-- My Cases -->
+<!-- Modern Cases View -->
 <div class="container-fluid">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h2">My Cases</h1>
-    <button class="btn btn-primary">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="h2 fw-bold text-slate-800 mb-1">My Cases</h1>
+      <p class="text-muted mb-0">Track and manage your legal matters</p>
+    </div>
+    <button class="btn btn-primary-unified">
       <i class="bi bi-plus-circle me-2"></i>Request New Case
     </button>
   </div>
 
-  <div class="card">
-    <div class="card-body">
+  <div class="card card-unified">
+    <div class="card-body p-0">
       <div class="table-responsive">
-        <table class="table table-striped table-hover">
+        <table class="table table-unified mb-0">
           <thead>
             <tr>
               <th>Case ID</th>
@@ -18,27 +21,46 @@
               <th>Status</th>
               <th>Attorney</th>
               <th>Last Update</th>
-              <th>Actions</th>
+              <th class="text-end">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let case of cases">
-              <td><strong>{{ case.id }}</strong></td>
-              <td>{{ case.title }}</td>
+            <tr *ngFor="let case of cases" class="align-middle">
               <td>
-                <span class="badge {{ getStatusClass(case.status) }}">
+                <span class="fw-semibold text-primary">{{ case.id }}</span>
+              </td>
+              <td>
+                <div class="fw-semibold">{{ case.title }}</div>
+              </td>
+              <td>
+                <span class="badge badge-modern {{ getStatusClass(case.status) }}">
+                  <i class="bi {{ getStatusIcon(case.status) }} me-1"></i>
                   {{ case.status }}
                 </span>
               </td>
-              <td>{{ case.attorney }}</td>
-              <td>{{ case.lastUpdate }}</td>
               <td>
-                <button class="btn btn-sm btn-outline-primary me-2">
-                  <i class="bi bi-eye"></i> View
-                </button>
-                <button class="btn btn-sm btn-outline-secondary">
-                  <i class="bi bi-chat-text"></i> Message
-                </button>
+                <div class="d-flex align-items-center">
+                  <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-2">
+                    <i class="bi bi-person-fill text-primary"></i>
+                  </div>
+                  <span class="fw-medium">{{ case.attorney }}</span>
+                </div>
+              </td>
+              <td>
+                <span class="text-muted">{{ case.lastUpdate | date:'MMM d, y' }}</span>
+              </td>
+              <td class="text-end">
+                <div class="btn-group" role="group">
+                  <button class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-chat-text"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-three-dots"></i>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>

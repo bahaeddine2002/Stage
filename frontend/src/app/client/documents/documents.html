@@ -1,16 +1,19 @@
-<!-- Documents -->
+<!-- Modern Documents View -->
 <div class="container-fluid">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h2">Documents</h1>
-    <button class="btn btn-primary">
+  <div class="d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="h2 fw-bold text-slate-800 mb-1">Documents</h1>
+      <p class="text-muted mb-0">Access and manage your case documents</p>
+    </div>
+    <button class="btn btn-primary-modern">
       <i class="bi bi-cloud-upload me-2"></i>Upload Document
     </button>
   </div>
 
-  <div class="card">
-    <div class="card-body">
+  <div class="card card-modern">
+    <div class="card-body p-0">
       <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table table-modern mb-0">
           <thead>
             <tr>
               <th>Document Name</th>
@@ -18,26 +21,46 @@
               <th>Size</th>
               <th>Related Case</th>
               <th>Upload Date</th>
-              <th>Actions</th>
+              <th class="text-end">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let doc of documents">
+            <tr *ngFor="let doc of documents" class="align-middle">
               <td>
-                <i class="bi bi-file-earmark-text me-2 text-primary"></i>
-                {{ doc.name }}
+                <div class="d-flex align-items-center">
+                  <div class="bg-primary bg-opacity-10 rounded-3 p-2 me-3">
+                    <i class="bi {{ getFileIcon(doc.type) }} text-primary"></i>
+                  </div>
+                  <div>
+                    <div class="fw-semibold">{{ doc.name }}</div>
+                    <small class="text-muted">{{ doc.id }}</small>
+                  </div>
+                </div>
               </td>
-              <td>{{ doc.type }}</td>
-              <td>{{ doc.size }}</td>
-              <td><span class="badge bg-light text-dark">{{ doc.case }}</span></td>
-              <td>{{ doc.uploaded }}</td>
               <td>
-                <button class="btn btn-sm btn-outline-primary me-2">
-                  <i class="bi bi-download"></i> Download
-                </button>
-                <button class="btn btn-sm btn-outline-secondary">
-                  <i class="bi bi-share"></i> Share
-                </button>
+                <span class="badge badge-modern text-bg-light">{{ doc.type }}</span>
+              </td>
+              <td>
+                <span class="text-muted">{{ doc.size }}</span>
+              </td>
+              <td>
+                <span class="badge badge-modern text-bg-primary">{{ doc.case }}</span>
+              </td>
+              <td>
+                <span class="text-muted">{{ doc.uploaded | date:'MMM d, y' }}</span>
+              </td>
+              <td class="text-end">
+                <div class="btn-group" role="group">
+                  <button class="btn btn-sm btn-outline-primary" title="Download">
+                    <i class="bi bi-download"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-secondary" title="Share">
+                    <i class="bi bi-share"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-secondary" title="More options">
+                    <i class="bi bi-three-dots"></i>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>
